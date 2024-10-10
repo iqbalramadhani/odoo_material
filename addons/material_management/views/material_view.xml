@@ -1,0 +1,68 @@
+<odoo>
+    <data>
+
+        <!-- Parent Menu for Inventory Management -->
+        <record id="menu_inventory_management" model="ir.ui.menu">
+            <field name="name">Inventory Management</field>
+            <field name="parent_id" ref="stock.menu_stock_root"/>  <!-- Referensi yang benar -->
+            <field name="sequence" eval="10"/>
+        </record>
+
+        <!-- Form View for Material -->
+        <record id="view_material_form" model="ir.ui.view">
+            <field name="name">material.form</field>
+            <field name="model">material</field>
+            <field name="arch" type="xml">
+                <form string="Material">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="material_code"/>
+                                <field name="material_name"/>
+                            </group>
+                            <group>
+                                <field name="material_type"/>
+                                <field name="material_buy_price"/>
+                            </group>
+                            <group>
+                                <field name="supplier_id"/>
+                            </group>
+                        </group>
+                        <footer>
+                            <button string="Save" type="object" name="create" class="btn-primary"/>
+                            <button string="Cancel" type="object" name="action_cancel" class="btn-secondary" 
+                                    onclick="self.close(); return false;"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View for Material -->
+        <record id="view_material_tree" model="ir.ui.view">
+            <field name="name">material.tree</field>
+            <field name="model">material</field>
+            <field name="arch" type="xml">
+                <tree string="Materials">
+                    <field name="material_code"/>
+                    <field name="material_name"/>
+                    <field name="material_type"/>
+                    <field name="material_buy_price"/>
+                    <field name="supplier_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action for Materials -->
+        <record id="action_material" model="ir.actions.act_window">
+            <field name="name">Materials</field>
+            <field name="res_model">material</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_material_tree"/>
+        </record>
+
+        <!-- Menu Item for Materials -->
+        <menuitem id="menu_material" name="Materials" action="action_material" parent_id="menu_inventory_management"/>
+
+    </data>
+</odoo>
